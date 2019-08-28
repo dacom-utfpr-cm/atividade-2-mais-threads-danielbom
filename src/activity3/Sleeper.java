@@ -19,7 +19,10 @@ public class Sleeper implements Runnable {
 				int time = new Random().nextInt(4000) + 1000; // In seconds
 
 				Thread.sleep(time);
-				System.out.printf("Thread (%d) sleep by %d time.\n", id, time);
+				System.out.printf("Thread (%d) dormiu por %d milisegundos.\n", id, time);
+				
+				// Código de teste do exercício 2
+				// Thread.currentThread().getThreadGroup().interrupt();
 			}
 
 		} catch (InterruptedException e) {

@@ -14,7 +14,8 @@ import java.util.stream.Stream;
 public class Exercise1 {
 
 	public static void main(String[] args) {
-		Thread[] threads = Stream.generate(() -> new Thread(new Sleeper())).limit(3).toArray(Thread[]::new);
+		Thread[] threads = Stream.generate(() -> new Thread(new Sleeper()))
+				.limit(3).toArray(Thread[]::new);
 
 		// Joker: ThreadsMonitor que a partir de um valor aleatório
 		// interrompe uma thread.
@@ -25,13 +26,15 @@ public class Exercise1 {
 					double limit = 0.9;
 					double rand = random.nextDouble();
 					if (rand > limit) { // 90% para parar a thread
-						System.out.printf("Interrompendo a thread %d.\n", thread.getId());
+						System.out.printf("Interrompendo a thread %d.\n",
+								thread.getId());
 						thread.interrupt();
 					}
 				}
 				Thread.sleep(1000);
 			} catch (InterruptedException ie) {
-				System.out.println("Ocorreu uma exceção de interrupção no Joker.");
+				System.out.println(
+						"Ocorreu uma exceção de interrupção no Joker.");
 			}
 		}).put(threads)).start();
 
@@ -39,13 +42,16 @@ public class Exercise1 {
 		new Thread(new ThreadsMonitor((monitorThreads) -> {
 
 			for (Thread thread : monitorThreads)
-				System.out.printf("Thread [%d] : Estado(%s) : Interrupted(%s).\n", thread.getId(),
-						thread.getState().toString(), thread.isInterrupted());
+				System.out.printf(
+						"Thread [%d] : Estado(%s) : Interrupted(%s).\n",
+						thread.getId(), thread.getState().toString(),
+						thread.isInterrupted());
 
 			try {
 				Thread.sleep(5000); // Period of 5 seconds
 			} catch (InterruptedException ie) {
-				System.out.println("Ocorreu uma exceção de interrupção no Monitor.");
+				System.out.println(
+						"Ocorreu uma exceção de interrupção no Monitor.");
 			}
 
 		}).put(threads).startAll()).start();

@@ -8,6 +8,8 @@ package activity3;
  */
 public class Primes {
 	static boolean isPrime(long n) {
+		if (n < 2)
+			return false;
 		if (n < 3)
 			return true;
 		if (n % 2 == 0)
