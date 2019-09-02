@@ -21,10 +21,9 @@ class SearchInRange<T> implements Runnable {
 
 	@Override
 	public void run() {
-		System.out.printf("%d: [%d,%d) \n", Thread.currentThread().getId(), this.begin, this.end);
+		System.out.printf("Thread %d: Intervalo [%d,%d) \n", Thread.currentThread().getId(), this.begin, this.end);
 		for (int i = begin; i < end; i++) {
 			T value = this.array[i];
-//			System.out.printf("%d %d %d (%d)\n", begin, i, end, value);
 			if (value.equals(this.value)) {
 				this.searcher.finished(i);
 				break;
@@ -54,12 +53,16 @@ public class ParallelSearcher<T> implements Runnable {
 		int limit = n / this.nthreads;
 
 		this.threads = new ArrayList<Thread>();
-		for (int i = 0; i < this.nthreads; i++) {
+		for (int i = 0; i < this.nthreads-1; i++) {
 			Thread thread = new Thread(new SearchInRange<T>(array,
 					this.value, i * limit, (i + 1) * limit, this));
 			thread.start();
 			threads.add(thread);
 		}
+		Thread thread = new Thread(new SearchInRange<T>(array,
+				value, limit * (nthreads-1), n, this));
+		thread.start();
+		threads.add(thread);
 
 		threads.forEach(t -> {
 			try {
