@@ -37,7 +37,7 @@ class MergeSort<T> implements Runnable {
 	
 	private void mergeSortThreads(MergeSort<T> left, MergeSort<T> right) {
 		System.out.println(">> [THREAD] Invocando threads para cada parte do array.");
-		ArrayList<Thread> threads = new ArrayList<Thread>();
+		ArrayList<Thread> threads = new ArrayList<Thread>(2);
 		threads.add(new Thread(left));
 		threads.add(new Thread(right));
 		
@@ -54,12 +54,10 @@ class MergeSort<T> implements Runnable {
 	}
 	
 	private void mergeSort() {
-//		int length = end - begin;
 		int middle = (begin + end) / 2;
 		MergeSort<T> left = new MergeSort<T>(array, begin, middle, comparator, this.depth + 1);
 		MergeSort<T> right = new MergeSort<T>(array, middle+1, end, comparator, this.depth + 1);
 		if (this.depth < this.maxDepth) {
-//		if (length < 8192) {
 			this.mergeSortThreads(left, right);
 		} else {
 			System.out.println(">> [NO THREAD] Fazendo chamada recursiva para o mergesort");
@@ -70,9 +68,9 @@ class MergeSort<T> implements Runnable {
 	}
 
 	private void merge() {
-		System.out.printf("> Merge [%d,%d] Tamanho (%d)\n", begin, end, end - begin);
+		System.out.printf("> Intervalo Merge [%d,%d] Tamanho (%d)\n", begin, end, end - begin);
 		int middle = (begin + end) / 2;
-		ArrayList<T> auxiliar = new ArrayList<T>();
+		ArrayList<T> auxiliar = new ArrayList<T>((end - begin) + 1);
 		int i = begin;
 		int j = middle + 1;
 
