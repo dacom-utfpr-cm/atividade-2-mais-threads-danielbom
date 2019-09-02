@@ -32,7 +32,7 @@ public class Exercise5 {
 		Sorter<Integer> sorter = new Sorter<Integer>();
 		Random random = new Random();
 
-		int max = 1_000_000;
+		int max = 10_000_000;
 		
 		Integer[] array = new Integer[max];
 		for (int i = 0; i < max; i++)

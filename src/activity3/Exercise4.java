@@ -31,7 +31,7 @@ public class Exercise4 {
 	
 	public static void main(String[] args) throws InterruptedException {	    
 		Random random = new Random();
-		int max = 1040;
+		int max = 1046;
 
 		Integer[] array = new Integer[max];
 		for (int i = 0; i < max; i++)
@@ -48,7 +48,7 @@ public class Exercise4 {
 		thread.join();
 
 
-		System.out.println("\n\n" + (ps.getIndex() == find(array, value)));
+		System.out.println("Equals: " + (ps.getIndex() == find(array, value)));
 		System.out.println("Expected: Index do valor " + value + " é " + find(array, value));
 		System.out.println("Received: Index do valor " + value + " é " + ps.getIndex());
 	}
